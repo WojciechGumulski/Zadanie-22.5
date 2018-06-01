@@ -6,12 +6,13 @@ import PostListItem from './PostListItem/PostListItem';
 function PostList(props) {
   return (
     <div className="listView">
-      {
-        props.posts.map(post => (
+      {props.posts.map(post => (
           <PostListItem
             post={post}
             key={post.cuid}
             onDelete={() => props.handleDeletePost(post.cuid)}
+            likePost={() => props.likePost(post.cuid)}
+            dislikePost={() => props.dislikePost(post.cuid)}
           />
         ))
       }
@@ -28,6 +29,8 @@ PostList.propTypes = {
     cuid: PropTypes.string.isRequired,
   })).isRequired,
   handleDeletePost: PropTypes.func.isRequired,
+  likePost: PropTypes.func.isRequired,
+  dislikePost: PropTypes.func.isRequired
 };
 
 export default PostList;

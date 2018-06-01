@@ -87,3 +87,25 @@ export function editPost(req, res) {
     res.json({ post });
   });
 }
+
+// Like post
+export function likePost(req, res) {
+  Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: 1 } }, err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+ 
+    return res.status(200).end();
+  });
+}
+
+// Dislike post
+export function dislikePost(req, res) {
+  Post.findOneAndUpdate({ cuid: req.params.cuid }, { $inc: { votes: -1 } }, err => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+ 
+    return res.status(200).end();
+  });
+}

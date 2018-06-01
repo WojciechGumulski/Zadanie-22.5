@@ -5,6 +5,8 @@ export const ADD_POST = 'ADD_POST';
 export const ADD_POSTS = 'ADD_POSTS';
 export const DELETE_POST = 'DELETE_POST';
 export const EDIT_POST = 'EDIT_POST';
+export const LIKE_POST = 'LIKE_POST';
+export const DISLIKE_POST = 'DISLIKE_POST';
 
 // Export Actions
 export function addPost(post) {
@@ -79,3 +81,31 @@ export function editPostRequest(cuid, post) {
     }).then(() => dispatch(editPost(cuid, post)));
   };
 }
+
+export function likePost(cuid) {
+  return {
+    type: LIKE_POST,
+    cuid,
+  };
+}
+
+export function likeRequest(cuid) {
+  return (dispatch) => {
+    return callApi(`posts/like/${cuid}`, 'put').then(() => dispatch(likePost(cuid)));
+  };
+}
+
+export function dislikePost(cuid) {
+  return {
+    type: DISLIKE_POST,
+    cuid,
+  };
+}
+
+export function dislikeRequest(cuid) {
+  return (dispatch) => {
+    return callApi(`posts/dislike/${cuid}`, 'put').then(() => dispatch(dislikePost(cuid)));
+  };
+}
+
+
